@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const LoginUser = () => {
+const SystemAuthPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // Estados para os formulários
@@ -829,4 +829,4 @@ const LoginUser = () => {
   );
 };
 
-export default LoginUser;
+export default SystemAuthPage;

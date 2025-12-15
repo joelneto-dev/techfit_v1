@@ -1232,8 +1232,8 @@ header("Pragma: no-cache");
                         altura: null
                     };
 
-                    // Fazer requisição para backend/api/cadastro.php
-                    const response = await fetch('../backend/api/cadastro.php', {
+                    // Fazer requisição para backend/api/matricula.php
+                    const response = await fetch('../backend/api/matricula.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

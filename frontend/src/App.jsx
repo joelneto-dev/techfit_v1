@@ -1,17 +1,20 @@
 // frontend/src/App.jsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
+import SystemAuthPage from './pages/Login';
+import DashboardAluno from './pages/DashboardAluno';
+import AdminPanel from './pages/AdminPanel';
+import EmailLogin from './pages/EmailLogin';
+import EmailBox from './pages/EmailBox';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rota raiz (/) carrega o Login */}
-        <Route path="/" element={<Login />} />
-        
-        {/* Futuramente teremos:
-        <Route path="/dashboard" element={<Dashboard />} /> 
-        */}
+        <Route path="/" element={<SystemAuthPage />} />
+        <Route path="/dashboard-aluno" element={<DashboardAluno />} />
+        <Route path="/admin-panel" element={<AdminPanel />} />
+        <Route path="/email-login" element={<EmailLogin />} />
+        <Route path="/email-box" element={<EmailBox />} />
       </Routes>
     </BrowserRouter>
   );

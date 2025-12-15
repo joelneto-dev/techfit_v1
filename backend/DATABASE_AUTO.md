@@ -54,7 +54,7 @@ Você verá um painel visual com:
 
 Todas as APIs já funcionarão automaticamente:
 ```
-http://localhost/techfit-sistema/backend/api/cadastro.php
+http://localhost/techfit-sistema/backend/api/matricula.php
 http://localhost/techfit-sistema/backend/api/auth.php
 http://localhost/techfit-sistema/backend/api/perfil.php
 http://localhost/techfit-sistema/backend/api/mensagens.php

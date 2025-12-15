@@ -28,9 +28,9 @@
 
 ## 🔧 APIs Implementadas
 
-### 1. **cadastro.php** - Matrícula de Novo Usuário
+### 1. **matricula.php** - Matrícula de Novo Usuário
 
-**Endpoint:** `POST /backend/api/cadastro.php`
+**Endpoint:** `POST /backend/api/matricula.php`
 
 **Body (JSON):**
 ```json
@@ -307,7 +307,7 @@ Ou
 
 ```bash
 # Cadastro
-curl -X POST http://localhost/backend/api/cadastro.php \
+curl -X POST http://localhost/backend/api/matricula.php \
   -H "Content-Type: application/json" \
   -d '{"nome":"João Silva","email":"joao@email.com","senha":"senha123","plano":"Gold"}'
 
@@ -324,7 +324,7 @@ curl -X GET "http://localhost/backend/api/mensagens.php?user_email=joao@email.co
 
 ```javascript
 // Cadastro
-const response = await fetch('http://localhost/backend/api/cadastro.php', {
+const response = await fetch('http://localhost/backend/api/matricula.php', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -342,7 +342,7 @@ console.log(data);
 
 ## 📦 Arquivos Criados
 
-- ✅ `backend/api/cadastro.php` - Processamento de matrícula
+- ✅ `backend/api/matricula.php` - Processamento de matrícula
 - ✅ `backend/api/auth.php` - Autenticação e ativação
 - ✅ `backend/api/perfil.php` - Gerenciamento de perfil
 - ✅ `backend/api/mensagens.php` - Correio eletrônico interno
