@@ -82,12 +82,9 @@ const SystemAuthPage = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const validateTechFitId = (id) => {
-    return /^\d{4}-\d{2}$/.test(id);
-  };
-
-  // Formatação do Código de Ativação (8 dígitos)
+  // Formatação do Código de Ativação (8 dígitos) - sem máscara
   const handleIdInput = (value) => {
+    // Aceita apenas números, máximo 8 dígitos
     let formatted = value.replace(/\D/g, '');
     if (formatted.length > 8) formatted = formatted.slice(0, 8);
     setVerifyId(formatted);
@@ -169,9 +166,10 @@ const SystemAuthPage = () => {
     e.preventDefault();
     let isValid = true;
 
-    if (!verifyId.trim()) {
+    // Validar código de 8 dígitos
+    if (!verifyId.trim() || verifyId.trim().length !== 8) {
       isValid = false;
-      alert('Código de ativação obrigatório.');
+      alert('Insira um Código de Ativação válido de 8 dígitos.');
       return;
     }
 

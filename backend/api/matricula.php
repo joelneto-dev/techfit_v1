@@ -29,15 +29,17 @@ try {
     $data = json_decode(file_get_contents('php://input'), true);
     
     // Validar campos obrigatórios
-    if (empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
+    if (empty($data['nome']) || empty($data['email'])) {
         http_response_code(400);
-        echo json_encode(['success' => false, 'message' => 'Campos obrigatórios: nome, email e senha']);
+        echo json_encode(['success' => false, 'message' => 'Campos obrigatórios: nome e email']);
         exit();
     }
     
     $nome = trim($data['nome']);
     $email = trim(strtolower($data['email']));
-    $senha = $data['senha'];
+    // Senha inicial = 8 primeiros dígitos do CPF (sem formatação)
+    $cpf_limpo = isset($data['cpf']) ? preg_replace('/\D/', '', $data['cpf']) : '';
+    $senha = !empty($cpf_limpo) && strlen($cpf_limpo) >= 8 ? substr($cpf_limpo, 0, 8) : (isset($data['senha']) ? $data['senha'] : '12345678');
     $plano = isset($data['plano']) ? $data['plano'] : 'Basic';
     $peso = isset($data['peso']) ? $data['peso'] : null;
     $altura = isset($data['altura']) ? $data['altura'] : null;
