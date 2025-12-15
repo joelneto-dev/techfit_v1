@@ -27,9 +27,9 @@ require 'header.php';
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <button id="hero-cta" type="button" class="bg-[#0500ff] hover:bg-[#0400cc] text-white font-bold shadow-[0_0_15px_rgba(5,0,255,0.5)] px-8 py-4 rounded-full text-base transition-transform hover:scale-105 flex items-center justify-center gap-2">
+                    <a href="matricula.php" class="bg-[#0500ff] hover:bg-[#0400cc] text-white font-bold shadow-[0_0_15px_rgba(5,0,255,0.5)] px-8 py-4 rounded-full text-base transition-transform hover:scale-105 flex items-center justify-center gap-2">
                         Matricule-se Agora
-                    </button>
+                    </a>
                 </div>
                 
                 <div class="pt-8 flex items-center gap-4 text-sm text-gray-400">
@@ -610,9 +610,9 @@ require 'header.php';
                 </div>
 
                 <div class="lg:w-auto relative z-10">
-                    <button type="button" class="bg-white text-[#0500ff] px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-lg whitespace-nowrap">
+                    <a href="matricula.php" class="bg-white text-[#0500ff] px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-lg whitespace-nowrap inline-block text-center">
                         Quero ser TechFit
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
