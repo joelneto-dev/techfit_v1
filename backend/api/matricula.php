@@ -1,4 +1,10 @@
 <?php
+// HEADERS CRÍTICOS - DEVEM ESTAR NAS PRIMEIRAS LINHAS
+header('Content-Type: application/json; charset=UTF-8');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
 /**
  * API de Matrícula - TechFit
  * Processa o cadastro de novos usuários e envia e-mail de ativação
@@ -12,7 +18,6 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
 register_shutdown_function(function() {
     $error = error_get_last();
     if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
-        header('Content-Type: application/json');
         http_response_code(500);
         echo json_encode([
             'success' => false,
@@ -22,27 +27,22 @@ register_shutdown_function(function() {
     }
 });
 
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
 // Responder OPTIONS para CORS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
 
-require_once '../config/database.php';
-
-// Apenas aceitar POST
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Método não permitido']);
-    exit();
-}
-
 try {
+    // Require do banco de dados dentro do try-catch
+    require_once '../config/database.php';
+    
+    // Apenas aceitar POST
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(['success' => false, 'message' => 'Método não permitido']);
+        exit();
+    }
     // Receber dados do POST
     $data = json_decode(file_get_contents('php://input'), true);
     
