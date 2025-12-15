@@ -62,7 +62,7 @@ export default function Email() {
         }
 
         // Buscar mensagens do backend
-        const response = await fetch(`http://localhost/techfit-sistema/backend/api/mensagens.php?user_email=${encodeURIComponent(userEmail)}`);
+        const response = await fetch(`http://localhost/techfit-sistema/backend/api/mensagens.php?email=${encodeURIComponent(userEmail)}`);
         const data = await response.json();
 
         if (data.success && data.mensagens) {

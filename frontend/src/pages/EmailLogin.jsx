@@ -335,7 +335,7 @@ function App() {
         }
     }
 
-    const handleLogin = async (e) => {
+    const handleNext = async (e) => {
         e.preventDefault();
         
         const trimmedEmail = email.trim();
@@ -473,7 +473,7 @@ function App() {
                     )}
 
 
-                    <form onSubmit={handleLogin} noValidate>
+                    <form onSubmit={handleNext} noValidate>
                         <div className={inputGroupClass}>
                             <input 
                                 type="email" 

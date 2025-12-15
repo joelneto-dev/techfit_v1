@@ -42,6 +42,20 @@ try {
     $peso = isset($data['peso']) ? $data['peso'] : null;
     $altura = isset($data['altura']) ? $data['altura'] : null;
     
+    // Novos campos do formulário de matrícula
+    $cpf = isset($data['cpf']) ? trim($data['cpf']) : null;
+    $data_nascimento = isset($data['data_nascimento']) ? $data['data_nascimento'] : null;
+    $telefone = isset($data['telefone']) ? trim($data['telefone']) : null;
+    $cep = isset($data['cep']) ? trim($data['cep']) : null;
+    $estado = isset($data['estado']) ? trim($data['estado']) : null;
+    $cidade = isset($data['cidade']) ? trim($data['cidade']) : null;
+    $rua = isset($data['rua']) ? trim($data['rua']) : null;
+    $numero = isset($data['numero']) ? trim($data['numero']) : null;
+    $bairro = isset($data['bairro']) ? trim($data['bairro']) : null;
+    $objetivo = isset($data['objetivo']) ? $data['objetivo'] : null;
+    $ciclo_plano = isset($data['ciclo_plano']) ? $data['ciclo_plano'] : 'monthly';
+    $metodo_pagamento = isset($data['metodo_pagamento']) ? $data['metodo_pagamento'] : null;
+    
     // Validar formato de email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         http_response_code(400);
@@ -68,8 +82,18 @@ try {
     
     // Inserir novo usuário
     $stmt = $conn->prepare("
-        INSERT INTO usuarios (nome, email, senha, plano, peso, altura, status, codigo_ativacao) 
-        VALUES (:nome, :email, :senha, :plano, :peso, :altura, 'pendente', :codigo_ativacao)
+        INSERT INTO usuarios (
+            nome, email, senha, plano, peso, altura, 
+            cpf, data_nascimento, telefone, cep, estado, cidade, 
+            rua, numero, bairro, objetivo, ciclo_plano, metodo_pagamento,
+            status, codigo_ativacao
+        ) 
+        VALUES (
+            :nome, :email, :senha, :plano, :peso, :altura,
+            :cpf, :data_nascimento, :telefone, :cep, :estado, :cidade,
+            :rua, :numero, :bairro, :objetivo, :ciclo_plano, :metodo_pagamento,
+            'pendente', :codigo_ativacao
+        )
     ");
     
     $stmt->bindParam(':nome', $nome);
@@ -78,6 +102,18 @@ try {
     $stmt->bindParam(':plano', $plano);
     $stmt->bindParam(':peso', $peso);
     $stmt->bindParam(':altura', $altura);
+    $stmt->bindParam(':cpf', $cpf);
+    $stmt->bindParam(':data_nascimento', $data_nascimento);
+    $stmt->bindParam(':telefone', $telefone);
+    $stmt->bindParam(':cep', $cep);
+    $stmt->bindParam(':estado', $estado);
+    $stmt->bindParam(':cidade', $cidade);
+    $stmt->bindParam(':rua', $rua);
+    $stmt->bindParam(':numero', $numero);
+    $stmt->bindParam(':bairro', $bairro);
+    $stmt->bindParam(':objetivo', $objetivo);
+    $stmt->bindParam(':ciclo_plano', $ciclo_plano);
+    $stmt->bindParam(':metodo_pagamento', $metodo_pagamento);
     $stmt->bindParam(':codigo_ativacao', $codigo_ativacao);
     
     $stmt->execute();

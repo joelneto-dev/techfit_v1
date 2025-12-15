@@ -29,7 +29,11 @@ try {
         }
         
         $stmt = $conn->prepare("
-            SELECT id, nome, email, plano, peso, altura, preferencia_tema, status, data_cadastro, data_ativacao 
+            SELECT 
+                id, nome, email, cpf, data_nascimento, telefone, 
+                cep, estado, cidade, rua, numero, bairro, objetivo,
+                plano, ciclo_plano, metodo_pagamento, peso, altura,
+                preferencia_tema, status, data_cadastro, data_ativacao
             FROM usuarios 
             WHERE id = :user_id
         ");
@@ -51,7 +55,19 @@ try {
                 'id' => $usuario['id'],
                 'nome' => $usuario['nome'],
                 'email' => $usuario['email'],
+                'cpf' => $usuario['cpf'],
+                'data_nascimento' => $usuario['data_nascimento'],
+                'telefone' => $usuario['telefone'],
+                'cep' => $usuario['cep'],
+                'estado' => $usuario['estado'],
+                'cidade' => $usuario['cidade'],
+                'rua' => $usuario['rua'],
+                'numero' => $usuario['numero'],
+                'bairro' => $usuario['bairro'],
+                'objetivo' => $usuario['objetivo'],
                 'plano' => $usuario['plano'],
+                'ciclo_plano' => $usuario['ciclo_plano'],
+                'metodo_pagamento' => $usuario['metodo_pagamento'],
                 'peso' => $usuario['peso'],
                 'altura' => $usuario['altura'],
                 'preferencia_tema' => $usuario['preferencia_tema'],
@@ -91,18 +107,17 @@ try {
         $valores = [':user_id' => $user_id];
         
         // Campos permitidos para atualização
-        $campos_permitidos = ['nome', 'plano', 'peso', 'altura', 'preferencia_tema'];
+        $campos_permitidos = [
+            'nome', 'cpf', 'data_nascimento', 'telefone', 'cep', 
+            'estado', 'cidade', 'rua', 'numero', 'bairro', 'objetivo',
+            'plano', 'ciclo_plano', 'metodo_pagamento', 'peso', 'altura',
+            'preferencia_tema'
+        ];
         
         foreach ($campos_permitidos as $campo) {
             if (isset($data[$campo])) {
-                // Tratamento especial para tema
-                if ($campo === 'preferencia_tema') {
-                    $campos_atualizacao[] = "preferencia_tema = :preferencia_tema";
-                    $valores[':preferencia_tema'] = $data[$campo];
-                } else {
-                    $campos_atualizacao[] = "{$campo} = :{$campo}";
-                    $valores[":{$campo}"] = $data[$campo];
-                }
+                $campos_atualizacao[] = "{$campo} = :{$campo}";
+                $valores[":{$campo}"] = $data[$campo];
             }
         }
         
@@ -119,7 +134,11 @@ try {
         
         // Buscar dados atualizados
         $stmt = $conn->prepare("
-            SELECT id, nome, email, plano, peso, altura, preferencia_tema, status 
+            SELECT 
+                id, nome, email, cpf, data_nascimento, telefone, 
+                cep, estado, cidade, rua, numero, bairro, objetivo,
+                plano, ciclo_plano, metodo_pagamento, peso, altura,
+                preferencia_tema, status, data_cadastro, data_ativacao
             FROM usuarios 
             WHERE id = :user_id
         ");

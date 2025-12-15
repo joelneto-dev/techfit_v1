@@ -21,6 +21,7 @@ try {
     // ROTA GET: Retornar mensagens do usuário
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $user_email = isset($_GET['user_email']) ? trim(strtolower($_GET['user_email'])) : '';
+        $user_email = empty($user_email) && isset($_GET['email']) ? trim(strtolower($_GET['email'])) : $user_email;
         $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
         
         // Se fornecido user_id, buscar o email

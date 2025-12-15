@@ -86,13 +86,10 @@ const SystemAuthPage = () => {
     return /^\d{4}-\d{2}$/.test(id);
   };
 
-  // Formatação do TechFit ID
+  // Formatação do Código de Ativação (8 dígitos)
   const handleIdInput = (value) => {
     let formatted = value.replace(/\D/g, '');
-    if (formatted.length > 6) formatted = formatted.slice(0, 6);
-    if (formatted.length > 4) {
-      formatted = formatted.slice(0, 4) + '-' + formatted.slice(4);
-    }
+    if (formatted.length > 8) formatted = formatted.slice(0, 8);
     setVerifyId(formatted);
   };
 
@@ -499,14 +496,14 @@ const SystemAuthPage = () => {
             <p className="text-gray-500 mb-8">Identifique-se para configurar sua conta.</p>
 
             <form onSubmit={handleVerification} className="space-y-5" noValidate>
-              {/* Campo TechFit ID */}
+              {/* Campo Código de Ativação */}
               <div className="input-group">
-                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">TechFit ID</label>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Código de Ativação</label>
                 <input 
                   id="verify-id" 
                   type="text" 
-                  placeholder="Ex: 2235-71" 
-                  maxLength="7" 
+                  placeholder="Ex: 12345678" 
+                  maxLength="8" 
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-[#0500ff] focus:ring-2 focus:ring-[#0500ff]/20 outline-none transition-all placeholder-gray-300 text-gray-700 bg-gray-50/50 focus:bg-white font-mono tracking-wide"
                   value={verifyId}
                   onChange={(e) => handleIdInput(e.target.value)}

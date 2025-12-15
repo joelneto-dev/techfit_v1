@@ -1198,7 +1198,7 @@ header("Pragma: no-cache");
                 nome: document.getElementById('input-nome').value.trim(),
                 sobrenome: document.getElementById('input-sobrenome').value.trim(),
                 cpf: document.getElementById('cpf').value.trim(),
-                dataNascimento: document.getElementById('input-dob').value.trim(), // NOVO CAMPO
+                data_nascimento: document.getElementById('input-dob').value.trim(),
                 telefone: document.getElementById('phone').value.trim(),
                 email: document.getElementById('input-email').value.trim(),
                 cep: document.getElementById('input-cep').value.trim(),
@@ -1209,8 +1209,8 @@ header("Pragma: no-cache");
                 bairro: document.getElementById('input-neighborhood').value.trim(),
                 objetivo: document.getElementById('input-goal').value,
                 plano: document.querySelector('input[name="plan"]:checked').value,
-                ciclo: document.getElementById('selected-cycle').value,
-                pagamento: document.querySelector('input[name="payment_method"]:checked').value
+                ciclo_plano: document.getElementById('selected-cycle').value,
+                metodo_pagamento: document.querySelector('input[name="payment_method"]:checked').value
             };
 
             // Submeter
@@ -1229,7 +1229,19 @@ header("Pragma: no-cache");
                         senha: userData.cpf.replace(/\D/g, '').substring(0, 8), // Senha inicial = 8 primeiros dígitos do CPF
                         plano: userData.plano,
                         peso: null,
-                        altura: null
+                        altura: null,
+                        cpf: userData.cpf,
+                        data_nascimento: userData.data_nascimento,
+                        telefone: userData.telefone,
+                        cep: userData.cep,
+                        estado: userData.estado,
+                        cidade: userData.cidade,
+                        rua: userData.rua,
+                        numero: userData.numero,
+                        bairro: userData.bairro,
+                        objetivo: userData.objetivo,
+                        ciclo_plano: userData.ciclo_plano,
+                        metodo_pagamento: userData.metodo_pagamento
                     };
 
                     // Fazer requisição para backend/api/matricula.php
