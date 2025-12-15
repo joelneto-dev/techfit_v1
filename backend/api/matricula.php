@@ -4,6 +4,24 @@
  * Processa o cadastro de novos usuários e envia e-mail de ativação
  */
 
+// Configurar tratamento global de erros para garantir JSON sempre
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+
+register_shutdown_function(function() {
+    $error = error_get_last();
+    if ($error !== null && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Erro fatal no servidor',
+            'error' => $error['message']
+        ]);
+    }
+});
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -155,17 +173,35 @@ try {
     ]);
     
 } catch (PDOException $e) {
+    error_log("Erro PDO na matrícula: " . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Erro ao processar matrícula',
+        'message' => 'Erro ao processar matrícula no banco de dados',
+        'error' => $e->getMessage()
+    ]);
+} catch (ErrorException $e) {
+    error_log("Erro PHP na matrícula: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Erro de execução no servidor',
         'error' => $e->getMessage()
     ]);
 } catch (Exception $e) {
+    error_log("Erro geral na matrícula: " . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Erro interno do servidor',
+        'error' => $e->getMessage()
+    ]);
+} catch (Throwable $e) {
+    error_log("Erro crítico na matrícula: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Erro crítico no servidor',
         'error' => $e->getMessage()
     ]);
 }
